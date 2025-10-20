@@ -1,5 +1,9 @@
 # Network Configuration Management
 
+[![ci](https://github.com/trevorlauder/ansible-example-home-network/actions/workflows/ci.yml/badge.svg)](https://github.com/trevorlauder/ansible-example-home-network/actions/workflows/ci.yml)
+
+[![Dependabot Updates](https://github.com/trevorlauder/ansible-example-home-network/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/trevorlauder/ansible-example-home-network/actions/workflows/dependabot/dependabot-updates)
+
 This example uses Ansible to generate network configuration files from structured YAML data.
 
 ## Overview
