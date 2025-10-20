@@ -1,4 +1,4 @@
-# Network Configuration Management
+# Ansible Example Home Network
 
 [![ci](https://github.com/trevorlauder/ansible-example-home-network/actions/workflows/ci.yml/badge.svg)](https://github.com/trevorlauder/ansible-example-home-network/actions/workflows/ci.yml)
 
