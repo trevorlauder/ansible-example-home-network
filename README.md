@@ -1,5 +1,9 @@
 # Network Configuration Management
 
+[![ci](https://github.com/trevorlauder/ansible-example-home-network/actions/workflows/ci.yml/badge.svg)](https://github.com/trevorlauder/ansible-example-home-network/actions/workflows/ci.yml)
+
+[![Dependabot Updates](https://github.com/trevorlauder/ansible-example-home-network/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/trevorlauder/ansible-example-home-network/actions/workflows/dependabot/dependabot-updates)
+
 This example uses Ansible to generate network configuration files from structured YAML data.
 
 ## Overview
@@ -57,8 +61,8 @@ This will:
 3. Load device configurations for all domains
 4. Combine variables into dictionaries
 5. Generate output files in the `dist/` directory:
-   - `dist/dhcpd.conf` 
-   - `dist/hosts` 
+   - `dist/dhcpd.conf`
+   - `dist/hosts`
    - `dist/nftables`
 
 ### nftables
