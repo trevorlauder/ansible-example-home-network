@@ -1,0 +1,51 @@
+---
+- name: Demo
+  gather_facts: false
+  hosts: localhost
+  vars:
+    domains:
+      - home.example.local
+      - dmz.example.local
+  tasks:
+    - name: Load firewall variables
+      include_vars:
+        file: host_vars/firewall.yaml
+        name: firewall
+
+    - name: Load subnet and device variables
+      include_vars:
+        file: "host_vars/subnets/{{ item }}.yaml"
+        name: "subnet_{{ item | replace('.', '_') }}"
+      loop: "{{ domains }}"
+
+    - name: Load device configurations
+      include_vars:
+        file: "host_vars/devices/{{ item }}.yaml"
+        name: "devices_{{ item | replace('.', '_') }}"
+      loop: "{{ domains }}"
+
+    - name: Combine variables into one dictionary
+      set_fact:
+        subnets: |
+          {%- set result = {} -%}
+          {%- for domain in domains -%}
+            {%- set _ = result.update({domain: vars['subnet_' + domain | replace('.', '_')]}) -%}
+          {%- endfor -%}
+          {{ result }}
+        devices: |
+          {%- set result = {} -%}
+          {%- for domain in domains -%}
+            {%- set _ = result.update({domain: vars['devices_' + domain | replace('.', '_')]}) -%}
+          {%- endfor -%}
+          {{ result }}
+
+    - name: Configure templates
+      ansible.builtin.template:
+        src: "{{ item }}.j2"
+        dest: "dist/{{ item }}"
+        backup: no
+        mode: "0640"
+      loop:
+        - dhcpd.conf
+        - hosts
+        - nftables

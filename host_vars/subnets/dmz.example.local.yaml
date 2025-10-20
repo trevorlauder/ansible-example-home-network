@@ -1,0 +1,13 @@
+# yaml-language-server: $schema=../../schemas/subnets.yaml
+---
+network: 192.168.2.0
+netmask: 255.255.255.0
+range_start: 192.168.2.100
+range_end: 192.168.2.150
+gateway: 192.168.2.1
+domain_name_servers: 192.168.2.1
+interface: eth2
+ipv6: false
+allow_firewall_ssh: false
+allow_override_wan: false
+dns_prerouting: true

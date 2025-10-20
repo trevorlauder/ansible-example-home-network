@@ -1,0 +1,10 @@
+# yaml-language-server: $schema=../../schemas/devices.yaml
+---
+laptop:
+  AA:BB:CC:DD:EE:FF:
+    block_wan: false
+    name: macbookpro
+printer:
+  11:22:33:44:55:66:
+    block_wan: true
+    name: brother
