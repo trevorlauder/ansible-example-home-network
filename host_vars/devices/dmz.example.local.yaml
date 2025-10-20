@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=../../schemas/devices.yaml
+---
+cooking:
+  CC:BB:CC:DD:EE:FF:
+    block_wan: false
+    name: smoker
+camera:
+  33:22:33:44:55:66:
+    block_wan: true
+    name: backyard
+    ip: 192.168.2.10

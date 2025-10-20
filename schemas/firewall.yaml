@@ -1,0 +1,39 @@
+---
+$schema: https://json-schema.org/draft/2020-12/schema
+type: object
+description: Firewall configuration
+additionalProperties: false
+properties:
+  wan:
+    type: string
+    description: Name of the WAN interface
+  ipv6:
+    type: boolean
+    description: Enable IPv6 support
+    default: false
+  ipv4_drop:
+    type: array
+    description: List of WAN IPv4 addresses to drop
+    items:
+      type: string
+    default: []
+  ipv6_drop:
+    type: array
+    description: List of WAN IPv6 addresses to drop
+    items:
+      type: string
+    default: []
+  icmpv6_wan_types:
+    type: array
+    description: List of ICMPv6 types to accept on WAN interface
+    items:
+      type: integer
+    default: []
+  icmpv6_forward_types:
+    type: array
+    description: List of ICMPv6 types to forward from WAN
+    items:
+      type: integer
+    default: []
+required:
+  - wan

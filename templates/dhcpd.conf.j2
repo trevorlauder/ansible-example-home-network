@@ -1,0 +1,38 @@
+{{ ansible_managed | comment }}
+
+default-lease-time 86400;
+max-lease-time 86400;
+log-facility local7;
+one-lease-per-client true;
+deny duplicates;
+ping-check true;
+update-conflict-detection false;
+authoritative;
+
+{% for domain, data in subnets.items() | sort %}
+subnet {{ data.network }} netmask {{ data.netmask }} {
+  pool {
+    range {{ data.range_start }} {{ data.range_end }};
+  }
+
+  option routers {{ data.gateway }};
+  option domain-name "{{ domain }}";
+  option domain-name-servers {{ data.domain_name_servers }};
+}
+
+{% endfor %}
+{% for domain, domain_data in subnets.items() | sort %}
+{% if devices[domain] is defined %}
+{% for subdomain, subdomain_data in devices[domain].items() | sort %}
+{% for ethernet, ethernet_data in subdomain_data.items() | sort %}
+{% if ethernet_data.ip is defined %}
+
+host {{ ethernet_data.name | replace("-", "_") }}_{{ subdomain | replace(".", "_") }}_{{ domain | replace(".", "_") }} {
+  hardware ethernet {{ ethernet }};
+  fixed-address {{ ethernet_data.ip }};
+}
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% endif %}
+{% endfor %}

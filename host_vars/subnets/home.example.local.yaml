@@ -1,0 +1,19 @@
+# yaml-language-server: $schema=../../schemas/subnets.yaml
+---
+network: 192.168.1.0
+netmask: 255.255.255.0
+range_start: 192.168.1.100
+range_end: 192.168.1.150
+gateway: 192.168.1.1
+domain_name_servers: 192.168.1.1
+interface: eth1
+ipv6: true
+allow_firewall_ssh: true
+allow_override_wan: false
+dns_prerouting: true
+subnet_access:
+  - dmz.example.local
+hosts:
+  192.168.1.101:
+    - example-host-1.home.example.local
+    - example-host-2.home.example.local

@@ -1,0 +1,40 @@
+---
+$schema: "https://json-schema.org/draft/2020-12/schema"
+type: object
+description: Device configuration
+additionalProperties: false
+patternProperties:
+  ".*":
+    type: object
+    description: Device category (e.g., laptop, phone)
+    additionalProperties: false
+    patternProperties:
+      "^([0-9A-F]{2}:[0-9A-F]{2}:[0-9A-F]{2}:[0-9A-F]{2}:[0-9A-F]{2}:[0-9A-F]{2})$":
+        type: object
+        description: Device details keyed by MAC address
+        additionalProperties: false
+        properties:
+          block_wan:
+            type: boolean
+            description: Whether to block WAN for this device
+          name:
+            type: string
+            description: Device hostname
+          ip:
+            type: string
+            description: Static IP address (optional)
+          host_access:
+            type: array
+            description: List of FQDNs this device can access
+            items:
+              type: string
+            default: []
+          subnet_access:
+            type: array
+            description: List of domains this device can access
+            items:
+              type: string
+            default: []
+        required:
+          - block_wan
+          - name

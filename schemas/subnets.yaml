@@ -1,0 +1,72 @@
+---
+$schema: https://json-schema.org/draft/2020-12/schema
+type: object
+description: Subnet configuration
+additionalProperties: false
+properties:
+  network:
+    type: string
+    description: Network address for the domain network
+  netmask:
+    type: string
+    description: Netmask for the domain network
+  range_start:
+    type: string
+    description: Start of DHCP range
+  range_end:
+    type: string
+    description: End of DHCP range
+  gateway:
+    type: string
+    description: Gateway IP address
+  domain_name_servers:
+    type: string
+    description: DNS server IP address
+  interface:
+    type: string
+    description: Firewall interface for the domain network
+  ipv6:
+    type: boolean
+    description: Whether IPv6 is enabled for this domain network
+  allow_firewall_ssh:
+    type: boolean
+    description: Allow SSH to the firewall from this domain network
+  allow_override_wan:
+    type: boolean
+    description: Allow entire domain network access to WAN, this overrides device block_wan key
+  subnet_access:
+    type: array
+    description: List of accessible subnets from this domain network
+    items:
+      type: string
+    default: []
+  host_access:
+    type: array
+    description: List of FQDNs this domain network can access
+    items:
+      type: string
+    default: []
+  dns_prerouting:
+    type: boolean
+    description: Enable DNS prerouting for this domain network
+  hosts:
+    type: object
+    description: Static hostfile assignments for this domain network
+    additionalProperties:
+      type: array
+      description: List of hostnames assigned to an IP
+      items:
+        type: string
+    default: {}
+required:
+  - allow_firewall_ssh
+  - allow_override_wan
+  - dns_prerouting
+  - domain_name_servers
+  - gateway
+  - interface
+  - ipv6
+  - netmask
+  - network
+  - range_end
+  - range_start

@@ -1,0 +1,35 @@
+{{ ansible_managed | comment }}
+
+127.0.0.1 localhost localhost.localdomain localhost4 localhost4.localdomain4
+
+{% for domain, data in subnets.items() | sort %}
+{{ data.gateway }} firewall.{{ domain }}
+{% endfor %}
+
+0.0.0.0 wpad{% for domain in subnets | sort %} wpad.{{ domain }}{% endfor %}{{ "\n" }}
+{% for domain, domain_data in subnets.items() | sort %}
+{% if domain_data.get('hosts', {}) | length > 0 %}
+{% for ip, ip_data in domain_data.hosts.items() | sort %}
+{{ ip }}{% for host in ip_data | sort %} {{ host }}{% endfor %}{{ "\n" }}
+{%- endfor %}
+{% endif %}
+{%- endfor %}
+
+#####################################################
+################# DHCP Reservations #################
+#####################################################
+{% for domain, domain_data in subnets.items() | sort %}
+{% if devices[domain] is defined %}
+{% for subdomain, subdomain_data in devices[domain].items() | sort %}
+{% if subdomain_data.items() | length > 0 %}
+{% for ethernet, ethernet_data in subdomain_data.items() | sort %}
+{% if ethernet_data.ip is defined %}
+
+# {{ ethernet }}
+{{ ethernet_data.ip }} {{ ethernet_data.name }}.{{ subdomain }}.{{ domain }}{% if "alias" in ethernet_data %}{% for alias in ethernet_data.alias | sort %} {{ alias }}{% endfor %}{% else %}{{ "\n" }}{% endif %}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor %}
