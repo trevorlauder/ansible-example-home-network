@@ -36,6 +36,7 @@ add counter inet filter forward_log_drop
 add counter inet filter forward_policy_jump_log_drop
 add counter inet filter input_antispoof_ipv4_drop
 add counter inet filter input_antispoof_ipv6_drop
+add counter inet filter input_dhcpv6
 add counter inet filter input_established
 add counter inet filter input_icmp_rate_limit_ipv4
 add counter inet filter input_icmp_rate_limit_ipv6
@@ -102,7 +103,6 @@ add rule inet filter INPUT meta l4proto icmpv6 icmpv6 type 128 limit rate 20/sec
 
 # Accept DHCPv6 packets on WAN interface
 {% if firewall.ipv6 %}
-add counter inet filter input_dhcpv6
 add rule inet filter INPUT iifname {{ firewall.wan }} meta l4proto udp udp sport 547 udp dport 546 counter name input_dhcpv6 accept comment "DHCPv6"
 {% endif %}
 
