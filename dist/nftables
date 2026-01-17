@@ -95,8 +95,8 @@ add rule inet filter INPUT iifname eth0 ip saddr @private_ipv4 counter name inpu
 add rule inet filter INPUT iifname eth0 ip6 saddr @private_ipv6 counter name input_antispoof_ipv6_drop drop comment "Antispoof IPv6 on WAN"
 
 # Rate limit ICMP and ICMPv6 packets
-add rule inet filter INPUT ip protocol icmp icmp type 8 limit rate 20/second burst 10 packets counter name input_icmp_rate_limit_ipv4 drop comment "ICMP rate limit"
-add rule inet filter INPUT meta l4proto icmpv6 icmpv6 type 128 limit rate 20/second burst 10 packets counter name input_icmp_rate_limit_ipv6 drop comment "ICMPv6 rate limit"
+add rule inet filter INPUT ip protocol icmp icmp type 8 limit rate 20/second burst 10 packets counter name input_icmp_rate_limit_ipv4 drop comment "ICMP echo request rate limit"
+add rule inet filter INPUT meta l4proto icmpv6 icmpv6 type 128 limit rate 20/second burst 10 packets counter name input_icmp_rate_limit_ipv6 drop comment "ICMPv6 echo request rate limit"
 
 # Accept DHCPv6 packets on WAN interface
 add rule inet filter INPUT iifname eth0 meta l4proto udp udp sport 547 udp dport 546 counter name input_dhcpv6 accept comment "DHCPv6"
