@@ -46,7 +46,6 @@ The configurations are generated from YAML-based infrastructure-as-code definiti
 
 - **Ansible** (see [Ansible Installation Guide](https://docs.ansible.com/ansible/latest/installation_guide/index.html))
 
-
 ### Generate Configuration Files
 
 Run the main playbook to generate all configuration files:
@@ -56,6 +55,7 @@ ansible-playbook main.yaml
 ```
 
 This will:
+
 1. Load firewall configuration from `host_vars/firewall.yaml`
 2. Load subnet configurations for all domains
 3. Load device configurations for all domains
