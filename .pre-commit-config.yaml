@@ -14,8 +14,26 @@ repos:
       - id: check-executables-have-shebangs
       - id: check-shebang-scripts-are-executable
       - id: check-symlinks
-  - repo: https://github.com/gitleaks/gitleaks
-    rev: v8.28.0
+  - repo: local
     hooks:
-      - id: gitleaks-docker
+      - id: dprint
+        name: dprint
+        language: system
+        entry: dprint fmt
+        pass_filenames: false
+      - id: actionlint
+        name: actionlint
+        language: system
+        entry: actionlint
+        pass_filenames: false
+      - id: zizmor
+        name: zizmor
+        language: system
+        entry: zizmor --persona auditor
+        files: \.github/workflows/
+        types: [yaml]
+      - id: trufflehog
+        name: trufflehog
+        language: system
+        entry: trufflehog git file://. --only-verified --fail
         pass_filenames: false

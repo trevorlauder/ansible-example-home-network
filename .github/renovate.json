@@ -1,0 +1,32 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    "schedule:weekly"
+  ],
+  "minimumReleaseAge": "7 days",
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    },
+    {
+      "matchManagers": [
+        "github-actions"
+      ],
+      "groupName": "github-actions"
+    },
+    {
+      "matchManagers": [
+        "mise"
+      ],
+      "groupName": "mise"
+    },
+    {
+      "matchManagers": [
+        "dprint"
+      ],
+      "groupName": "dprint"
+    }
+  ]
+}
